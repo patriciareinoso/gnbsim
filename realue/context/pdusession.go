@@ -19,36 +19,34 @@ import (
  * Real UE control plane
  */
 type PduSession struct {
-	/* Number of UL data packets to be transmitted as requested by Sim UE*/
-	SscMode          uint8
-	PktCount         int
-	PduSessId        int64
-	Snssai           models.Snssai
-	PduSessType      models.PduSessionType
-	PduAddress       net.IP
-	SeqNum           int
-	ReqDataPktCount  int
-	ReqDataPktInt    int
-	DefaultAs        string
-	TxDataPktCount   int
-	RxDataPktCount   int
-	LastDataPktRecvd bool
-	// Inidicates that a Go routine already exists for this PDU Session
-	Launched bool
+	DefaultAs string
 	/* uplink packets are written to gNB UE user plane context on this channel */
 	WriteGnbChan chan common.InterfaceMessage
 
 	/* command replies are written to RealUE over this channel */
 	WriteUeChan chan common.InterfaceMessage
 
-	/* Downlink packets from gNB UE user plane context are read over this channel */
-	ReadDlChan chan common.InterfaceMessage
-
-	// commands from RealUE control plane are read on this channel
-	ReadCmdChan chan common.InterfaceMessage
-
 	/* logger */
 	Log *logrus.Entry
+	/* Downlink packets from gNB UE user plane context are read over this channel */
+	ReadDlChan chan common.InterfaceMessage
+	// commands from RealUE control plane are read on this channel
+	ReadCmdChan chan common.InterfaceMessage
+	Snssai      models.Snssai
+	PduSessType models.PduSessionType
+	PduAddress  net.IP
+	SeqNum      int
+	/* Number of UL data packets to be transmitted as requested by Sim UE*/
+	ReqDataPktCount  int
+	ReqDataPktInt    int
+	TxDataPktCount   int
+	RxDataPktCount   int
+	PktCount         int
+	PduSessId        int64
+	SscMode          uint8
+	LastDataPktRecvd bool
+	// Inidicates that a Go routine already exists for this PDU Session
+	Launched bool
 }
 
 func NewPduSession(realUe *RealUe, pduSessId int64) *PduSession {

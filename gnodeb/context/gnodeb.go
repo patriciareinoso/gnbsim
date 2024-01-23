@@ -17,12 +17,9 @@ import (
 type GNodeB struct {
 	//TODO IP and port should be the property of transport var
 	GnbN2Ip              string                 `yaml:"n2IpAddr"`
-	GnbN2Port            int                    `yaml:"n2Port"`
 	GnbN3Ip              string                 `yaml:"n3IpAddr"`
-	GnbN3Port            int                    `yaml:"n3Port"`
 	GnbName              string                 `yaml:"name"`
 	RanId                models.GlobalRanNodeId `yaml:"globalRanId"`
-	SupportedTaList      []SupportedTA          `yaml:"supportedTaList"`
 	GnbUes               *GnbUeDao
 	GnbPeers             *GnbPeerDao
 	RanUeNGAPIDGenerator *idgenerator.IDGenerator
@@ -41,7 +38,10 @@ type GNodeB struct {
 	UpTransport transport.Transport
 
 	/* logger */
-	Log *logrus.Entry
+	Log             *logrus.Entry
+	SupportedTaList []SupportedTA `yaml:"supportedTaList"`
+	GnbN2Port       int           `yaml:"n2Port"`
+	GnbN3Port       int           `yaml:"n3Port"`
 }
 
 func (gnb *GNodeB) GetDefaultAmf() *GnbAmf {

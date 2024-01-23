@@ -19,21 +19,22 @@ const NGAP_SCTP_PORT int = 38412
 
 // GnbAmf holds the AMF context
 type GnbAmf struct {
-	/* Indicates wether NGSetup was successful or not*/
-	NgSetupStatus bool
-	AmfHostName   string `yaml:"hostName"`
-	AmfIp         string `yaml:"ipAddr"`
-	AmfName       string
-	AmfPort       int `yaml:"port"`
-	/* Relative AMF Capacity */
-	RelCap          int64
+	AmfHostName string `yaml:"hostName"`
+	AmfIp       string `yaml:"ipAddr"`
+	AmfName     string
+
 	ServedGuamiList []models.Guami
-	PlmnSupportList []factory.PlmnSupportItem
 	/*Socket Connection*/
 	Conn net.Conn
-
 	/* logger */
 	Log *logrus.Entry
+
+	PlmnSupportList []factory.PlmnSupportItem
+	AmfPort         int `yaml:"port"`
+	/* Relative AMF Capacity */
+	RelCap int64
+	/* Indicates wether NGSetup was successful or not*/
+	NgSetupStatus bool
 }
 
 func NewGnbAmf(ip string, port int) *GnbAmf {
